@@ -1,0 +1,59 @@
+Late Night Radio Enthusiasts
+
+Scripts
+Python scripts to speech
+Godot ui for all elements
+* focus switching? 
+* Manual switching? Click to focus.
+
+TV schedule. After certain times some channels go dark, their wavelengths become open.
+
+Other ham users on radio.
+
+Scan around, music, events, intense debates.
+
+2 guys arguing the whole night, one of them might get taken.
+
+Realtime game? 1 hour?
+
+* Smoke
+* Drink. Get drunk. Get too drunk? Wake up in the morning! Game over.
+
+notebook log.
+
+
+game:
+
+start, look around, start playing with radio, ham radio, and tv. Police scanner.
+tv schedule, notebook, other meta info.
+
+An event will happen. Somebody has seen it first. Trucker? Police? Somebody calling a radio station?
+Look for a first clue, ham radio, police scanner, radio, tv will always be last.
+* TV is emergency broadcast or hijacked signals.
+* Police scanner chatter
+* Ham radio users
+* FM Radio caller
+
+The scenario will now start, and some mediums will contain content.
+
+
+Users:
+* people fighting / politics 
+* Erotica
+* Truckers 
+* RVs
+* Other crazies, abductees 
+* 
+
+FM Channels:
+* Late Night drive time
+* Midnight Talk
+
+
+Operators:
+* Highway patrol
+* Sheriff
+* Emergency services (ambulance/fire)
+* GMen, Encrypted
+
+
