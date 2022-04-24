@@ -1,19 +1,11 @@
-screen = 0
 width = 400
 height = 240
-winCount = 0
-loseCount = 0
-bg = 0
 
 briefs = {
 	-- Holo
 	{{1, "Chief!"}, {4, "Yes sir"}, {1, "Riker's blown all his loa-leave, in the holodeck again"}, {6, " "}, {2,"Be a dear and scrub the holo-filters"}}
 }	
 
-briefIdx = 1
-briefLen = 1
-mission = 0
-missionLen = # briefs
 
 function mHolo()
 end
@@ -22,6 +14,15 @@ function mBirthday()
 end
 
 function love.load()
+bg = 0
+screen = 0
+winCount = 0
+loseCount = 0
+briefIdx = 1
+briefLen = 1
+mission = 0
+missionLen = #briefs
+timer = 0
 title = love.graphics.newImage("img/title1.png")
 blank = love.graphics.newImage("img/game.png")
 
@@ -36,15 +37,15 @@ briefImg = {
 end
 
 function nextMission()
-	mission = mission + 1
-	if mission > missionLen then
-		mission = 1
-	end
+	mission = 1
 	briefLen = #briefs[mission]
-	briefIdx = 0
+	briefIdx = 1
+	print("mission is " .. mission)
+	print("bidx is " .. briefIdx)
 end
 
 function love.update(dt)
+	timer = timer + dt
 	if screen == 2 then
 		-- mini game controls
 		print("game " .. mission)
@@ -52,7 +53,9 @@ function love.update(dt)
 		return
 	end
 
+	if timer >= 1 then
 	if love.keyboard.isDown("space") then
+		timer = 0
 		if screen == 0 then
 			screen = 1
 			nextMission()
@@ -60,10 +63,15 @@ function love.update(dt)
 		end
 		if screen == 1 then
 			if briefIdx <= 0 then
+				print("bidx is " .. briefIdx)
 				briefIdx = 1
-			elseif briefIdx <= briefLen then
-				briefIdx = briefIdx + 1
+				print("bidx was 0 is " .. briefIdx)
 			elseif briefIdx > briefLen then
+				nextMission()
+			elseif briefIdx < briefLen then
+				briefIdx = briefIdx + 1
+				print("bidx is " .. briefIdx)
+			else
 				-- Brief finished, reset
 				nextMission()
 				-- play minigame
@@ -72,7 +80,7 @@ function love.update(dt)
 			return
 		end
 	end
-
+	end
 end
 
 function love.draw()
