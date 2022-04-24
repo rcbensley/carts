@@ -33,6 +33,17 @@ briefScreens = {
 	love.graphics.newImage("img/ob_gross.png"),
 }
 
+briefTexts = {
+	"Chief!",
+	"Miles!",
+	"O'Brien!",
+	"Sir?",
+	"Yes, sir?",
+	"Yes, dear?",
+	"...",
+	"What?",
+}
+
 
 briefImg = briefScreens[briefs[mission][briefIdx][1]]
 briefText = briefs[mission][briefIdx][2]
