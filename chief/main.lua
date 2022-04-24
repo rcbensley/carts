@@ -72,6 +72,7 @@ function love.update(dt)
 		if timer >= 1 and love.keyboard.isDown("space") then
 			print("game " .. mission .. " has ended")
 			screen = 1
+			timer = 0
 		end
 	end
 
