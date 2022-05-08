@@ -8,6 +8,10 @@ briefs = {
 
 
 function love.load()
+	rx = 0.0
+	ry = 0.0
+	x = 0.0
+	y = 0.0
 
 
 	title = love.graphics.newImage("img/title1.png")

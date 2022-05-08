@@ -1,0 +1,23 @@
+{
+	"Lua.runtime.version": "LuaJIT",
+	"Lua.workspace.library": [
+		"${3rd}/love2d/library"
+	],
+	"Lua.workspace.checkThirdParty": false,
+	"Lua.diagnostics.globals": [
+		"bg",
+		"screen",
+		"briefIdx",
+		"timer",
+		"briefLen",
+		"mission",
+		"briefImg",
+		"briefScreens",
+		"title",
+		"blank",
+		"briefText",
+		"briefs",
+		"height",
+		"width"
+	]
+}
