@@ -19,5 +19,9 @@
 		"briefs",
 		"height",
 		"width"
+	],
+	"Lua.diagnostics.disable": [
+		"missing-parameter",
+		"lowercase-global"
 	]
 }

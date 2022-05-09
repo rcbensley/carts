@@ -1,24 +1,11 @@
-width = 400
-height = 240
-
-briefs = {
-	-- Holo
-	{ { 1, "Chief!" }, { 4, "Yes sir" }, { 2, "Riker's blown his loa-leave, in the holodeck again" }, { 6, "..." }, { 3, "Be a dear and scrub the holo-filters" } },
-	-- Birthday
-	{{1, "Chief!"} ,{1, "It's Commander Riker's Birthday"}, {4, "..."}, {2, "Isn't he a scamp?"}},
-}
-
-
-
-
 function love.load()
-	minigame = false
-	rx = 0.0
-	ry = 0.0
-	x = 0.0
-	y = 0.0
-	state = {}
+	width = 400
+	height = 240
 
+	missions = {
+		mHolo,
+		mBirthday,
+	}
 
 	title = love.graphics.newImage("img/title1.png")
 	blank = love.graphics.newImage("img/game.png")
@@ -42,14 +29,17 @@ function love.load()
 	screen = 0
 	briefIdx = 1
 	mission = 1
-	missionCount = #briefs
-	briefLen = #briefs[mission]
 	timer = 0
-	briefImg = briefScreens[briefs[mission][briefIdx][1]]
-	briefText = briefs[mission][briefIdx][2]
 end
 
-function game_holo()
+-- START OF MISSIONS
+
+mHolo = {
+	text = { { 1, "Chief!" }, { 4, "Yes sir" }, { 2, "Riker's blown his loa- leave, in the holodeck again" }, { 6, "..." }, { 3, "Be a dear and scrub the holo-filters" } },
+	game_over = false,
+}
+
+function mHolo:update()
 	if love.keyboard.isDown("a", "left") then
 		rx = -1.0
 	end
@@ -62,51 +52,39 @@ function game_holo()
 	if love.keyboard.isDown("s", "down") then
 		ry = 1.0
 	end
-	minigame = false
+	--self.game_over = love.keyboard.isDown("space")
 end
 
-function draw_game_holo()
+function mHolo:draw()
 	love.graphics.draw(gameScreens[1])
 end
 
-function game_birthday()
-	if #state == 0 then
-		state["img"] = 2
-		state["nods"] = 0
-	end
-	if love.keyboard.isDown("space") then
-		if state["img"] == 3 then
-			state["img"] = 2
-		else
-			state["img"] = 3
-		end
-		state["nods"] = state["nods"] + 1
-	end
-	if state["nods"] >= 7 then
-		minigame = false
-	end
-end
-
-function draw_game_birthday()
-	love.graphics.draw(gameScreens[state["img"]])
-end
-
-briefGames = {
-	{game_holo, draw_game_holo},
-	{game_birthday, draw_game_birthday}
+mBirthday = {
+	text = { { 1, "Chief!" }, { 1, "It's Commander Riker's Birthday" }, { 4, "..." }, { 2, "Isn't he a scamp?" } },
+	gameOver = false,
+	screen = 2,
+	nods = 0,
 }
 
-function nextMission()
-	if mission >= missionCount then
-		mission = 1
-	else
-		mission = mission + 1
+function mBirthday:update()
+	if love.keyboard.isDown("space") then
+		if self.screen == 2 then
+			self.screen = 3
+		elseif self.screen == 3 then
+			self.screen = 2
+		end
+		self.nods = self.nods + 1
+		if self.nods >= 8 then
+			self.gameOver = true
+		end
 	end
-	minigame = false
-	screen = 1
-	timer = 0
-	state = {}
 end
+
+function mBirthday:draw()
+	love.graphics.draw(gameScreens[self.screen])
+end
+
+-- END OF MISSIONS
 
 function love.update(dt)
 	timer = timer + dt
@@ -121,31 +99,27 @@ function love.update(dt)
 	if screen == 1 then
 		if timer >= 0.5 and love.keyboard.isDown("space") then
 			timer = 0
-			if briefIdx <= 0 then
-				briefIdx = 1
-			elseif briefIdx <= briefLen then
+			if briefIdx < #missions[mission].text then
 				briefIdx = briefIdx + 1
-			end
-
-			if briefIdx > briefLen then
-				briefLen = #briefs[mission]
+			elseif briefIdx >= #missions[mission].text then
 				briefIdx = 1
 				minigame = true
 				screen = 2
 			end
-			briefImg = briefScreens[briefs[mission][briefIdx][1]]
-			briefText = briefs[mission][briefIdx][2]
 		end
 	end
 
 	if screen == 2 then
-		if minigame then
-			briefGames[1][mission]()
-			return
+		if not missions[mission].game_over then
+			missions[mission].update()
 		end
 		if timer >= 1 and love.keyboard.isDown("space") then
-			print("game " .. mission .. " has ended")
-			nextMission()
+			if mission >= #missions then
+				mission = 1
+			else
+				mission = mission + 1
+			end
+			screen = 1
 		end
 	end
 
@@ -160,17 +134,14 @@ function love.draw()
 
 	-- Draw current brief
 	if screen == 1 then
-		love.graphics.draw(briefImg, 0, 0)
-		love.graphics.print(briefText, 10, 200)
+		love.graphics.draw(briefScreens[missions[mission].text[briefIdx][1]], 0, 0)
+		love.graphics.print(missions[mission].text[briefIdx][2], 10, 200)
 	end
 
 	-- minigame
 	if screen == 2 then
-		if minigame then
-			briefGames[2][mission]()
-			return
-		else
-			love.graphics.draw(blank, 0, 0)
+		if not missions[mission].game_over then
+			missions[mission].draw()
 		end
 	end
 
