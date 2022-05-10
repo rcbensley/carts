@@ -6,13 +6,13 @@ mHolo = {
 	screens = {}
 }
 
-function mHolo:load(self)
+function mHolo.load()
 	mHolo.screens = {
 		love.graphics.newImage("img/ob_holo_hand.png"),
 	}
 end
 
-function mHolo:update()
+function mHolo.update()
 	if love.keyboard.isDown("a", "left") then
 		rx = -1.0
 	end
@@ -25,10 +25,10 @@ function mHolo:update()
 	if love.keyboard.isDown("s", "down") then
 		ry = 1.0
 	end
-	--self.game_over = love.keyboard.isDown("space")
+	mHolo.game_over = love.keyboard.isDown("space")
 end
 
-function mHolo:draw()
+function mHolo.draw()
 	love.graphics.draw(mHolo.screens[1])
 end
 
@@ -39,14 +39,14 @@ mBirthday = {
 	nods = 0,
 }
 
-function mBirthday:load()
+function mBirthday.load()
 	mBirthday.screens = {
 		love.graphics.newImage("img/ob_nod1.png"),
 		love.graphics.newImage("img/ob_nod2.png"),
 	}
 end
 
-function mBirthday:update()
+function mBirthday.update()
 	if love.keyboard.isDown("space") then
 		if mBirthday.nod == 1 then
 			mBirthday.nod = 2
@@ -60,7 +60,7 @@ function mBirthday:update()
 	end
 end
 
-function mBirthday:draw()
+function mBirthday.draw()
 	love.graphics.draw(mBirthday.screens[mBirthday.nod])
 end
 
@@ -121,7 +121,8 @@ function love.update(dt)
 	end
 
 	if screen == 2 then
-		if not missions[mission].game_over then
+		if timer >= 0.5 and not missions[mission].game_over then
+			timer = 0
 			missions[mission].update()
 		end
 		if timer >= 1 and love.keyboard.isDown("space") then
