@@ -1,43 +1,16 @@
-function love.load()
-	width = 400
-	height = 240
-
-	missions = {
-		mHolo,
-		mBirthday,
-	}
-
-	title = love.graphics.newImage("img/title1.png")
-	blank = love.graphics.newImage("img/game.png")
-
-	briefScreens = {
-		love.graphics.newImage("img/cpt_order.png"),
-		love.graphics.newImage("img/cpt_quiz.png"),
-		love.graphics.newImage("img/cpt_silly.png"),
-		love.graphics.newImage("img/ob_yes.png"),
-		love.graphics.newImage("img/ob_what.png"),
-		love.graphics.newImage("img/ob_gross.png"),
-	}
-
-	gameScreens = {
-		love.graphics.newImage("img/ob_holo_hand.png"),
-		love.graphics.newImage("img/ob_nod1.png"),
-		love.graphics.newImage("img/ob_nod2.png"),
-	}
-
-	bg = 0
-	screen = 0
-	briefIdx = 1
-	mission = 1
-	timer = 0
-end
-
 -- START OF MISSIONS
 
 mHolo = {
 	text = { { 1, "Chief!" }, { 4, "Yes sir" }, { 2, "Riker's blown his loa- leave, in the holodeck again" }, { 6, "..." }, { 3, "Be a dear and scrub the holo-filters" } },
 	game_over = false,
+	screens = {}
 }
+
+function mHolo:load(self)
+	mHolo.screens = {
+		love.graphics.newImage("img/ob_holo_hand.png"),
+	}
+end
 
 function mHolo:update()
 	if love.keyboard.isDown("a", "left") then
@@ -56,35 +29,74 @@ function mHolo:update()
 end
 
 function mHolo:draw()
-	love.graphics.draw(gameScreens[1])
+	love.graphics.draw(mHolo.screens[1])
 end
 
 mBirthday = {
 	text = { { 1, "Chief!" }, { 1, "It's Commander Riker's Birthday" }, { 4, "..." }, { 2, "Isn't he a scamp?" } },
 	gameOver = false,
-	screen = 2,
+	nod = 1,
 	nods = 0,
 }
 
+function mBirthday:load()
+	mBirthday.screens = {
+		love.graphics.newImage("img/ob_nod1.png"),
+		love.graphics.newImage("img/ob_nod2.png"),
+	}
+end
+
 function mBirthday:update()
 	if love.keyboard.isDown("space") then
-		if self.screen == 2 then
-			self.screen = 3
-		elseif self.screen == 3 then
-			self.screen = 2
+		if mBirthday.nod == 1 then
+			mBirthday.nod = 2
+		else
+			mBirthday.nod = 1
 		end
-		self.nods = self.nods + 1
-		if self.nods >= 8 then
-			self.gameOver = true
+		mBirthday.nods = mBirthday.nods + 1
+		if mBirthday.nods >= 8 then
+			mBirthday.gameOver = true
 		end
 	end
 end
 
 function mBirthday:draw()
-	love.graphics.draw(gameScreens[self.screen])
+	love.graphics.draw(mBirthday.screens[mBirthday.nod])
 end
 
 -- END OF MISSIONS
+
+function love.load()
+	width = 400
+	height = 240
+
+	title = love.graphics.newImage("img/title1.png")
+	blank = love.graphics.newImage("img/game.png")
+
+	briefs = {
+		love.graphics.newImage("img/cpt_order.png"),
+		love.graphics.newImage("img/cpt_quiz.png"),
+		love.graphics.newImage("img/cpt_silly.png"),
+		love.graphics.newImage("img/ob_yes.png"),
+		love.graphics.newImage("img/ob_what.png"),
+		love.graphics.newImage("img/ob_gross.png"),
+	}
+
+	bg = 0
+	screen = 0
+	briefIdx = 1
+	mission = 1
+	timer = 0
+
+	missions = {
+		mHolo,
+		mBirthday,
+	}
+
+	for i = 1, #missions do
+		missions[i].load()
+	end
+end
 
 function love.update(dt)
 	timer = timer + dt
@@ -103,7 +115,6 @@ function love.update(dt)
 				briefIdx = briefIdx + 1
 			elseif briefIdx >= #missions[mission].text then
 				briefIdx = 1
-				minigame = true
 				screen = 2
 			end
 		end
@@ -134,7 +145,7 @@ function love.draw()
 
 	-- Draw current brief
 	if screen == 1 then
-		love.graphics.draw(briefScreens[missions[mission].text[briefIdx][1]], 0, 0)
+		love.graphics.draw(briefs[missions[mission].text[briefIdx][1]], 0, 0)
 		love.graphics.print(missions[mission].text[briefIdx][2], 10, 200)
 	end
 
