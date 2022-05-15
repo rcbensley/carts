@@ -8,25 +8,41 @@ function _init()
 	oy = 0
 	rx = 64
 	ry = 64
+	offx=64
+	offy=64
 end
 
 function _update()
 	if (btn(0)) then
 		ex=ex-1
 		ox=ox-1
+		offx=rx-1
+		offy=ry
 	end
 	if (btn(1)) then
 		ex=ex+1
 		ox=ox+1
+		offx=rx+1
+		offy=ry
 	end
 	if (btn(2)) then
 		ey=ey-1
 		oy=oy-1
+		offy=ry-1
+		offx=rx
 	end
 	if (btn(3)) then
 		ey=ey+1
 		oy=oy+1
+		offy=ry+1
+		offx=rx
 	end
+	
+	if ex >= 70 then ex=70 end
+	if ex <= 58 then ex=58 end
+	if ey >= 70 then ey=70 end
+	if ey <= 58 then ey=58 end
+	
 	if oy > 50 then
 		oy = -50
 	elseif oy < -50 then
@@ -43,10 +59,10 @@ end
 
 function draweye()
 	circfill(ex, ey, 16, 3)
---	circ(ex, ey+1, 8, 8)
-	oval(rx-12, ry-4, rx+12, ry+5, 8)
---	circfill(ex, ey, 8, 7)
-	ovalfill(rx-12, ry-4, rx+12, ry+4, 7)
+circfill(offx, offy, 8, 8)
+	--oval(rx-12, ry-4, rx+12, ry+5, 8)
+circfill(rx, ry, 8, 7)
+	--ovalfill(rx-12, ry-4, rx+12, ry+4, 7)
 	circfill(rx, ry, 4, 0)
 end
 
