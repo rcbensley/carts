@@ -4,22 +4,50 @@ __lua__
 function _init()
 	ex = 64
 	ey = 64
+	ox = 0
+	oy = 0
+	rx = 64
+	ry = 64
 end
 
 function _update()
-	if (btn(0)) then ex=ex-1 end
-	if (btn(1)) then ex=ex+1 end
-	if (btn(2)) then ey=ey-1 end
-	if (btn(3)) then ey=ey+1 end
+	if (btn(0)) then
+		ex=ex-1
+		ox=ox-1
+	end
+	if (btn(1)) then
+		ex=ex+1
+		ox=ox+1
+	end
+	if (btn(2)) then
+		ey=ey-1
+		oy=oy-1
+	end
+	if (btn(3)) then
+		ey=ey+1
+		oy=oy+1
+	end
+	if oy > 50 then
+		oy = -50
+	elseif oy < -50 then
+		oy = 50
+	end
+	if ox > 50 then
+	ox = -50
+	elseif ox < -50 then
+		ox = 50
+	end
+	rx = ex + ox
+	ry = ey + oy
 end
 
 function draweye()
 	circfill(ex, ey, 16, 3)
-	circ(ex, ey+1, 8, 8)
-	circfill(ex, ey, 8, 7)
-	circfill(ex+4, ey, 8-2, 7)
-	circfill(ex-4, ey, 8-2, 7)
-	circfill(ex, ey, 4, 0)
+--	circ(ex, ey+1, 8, 8)
+	oval(rx-12, ry-4, rx+12, ry+5, 8)
+--	circfill(ex, ey, 8, 7)
+	ovalfill(rx-12, ry-4, rx+12, ry+4, 7)
+	circfill(rx, ry, 4, 0)
 end
 
 function _draw()
