@@ -74,10 +74,17 @@ function draweye()
 end
 
 function drawmask()
-	for lx=x-r,x do
-		local a=sqrt(x-lx)
-		local ly=sqrt(r-a)
-		line(lx,0,lx, ly, 1)
+	local ly=y-r
+	for lx=x-r,x+r do
+		local c=lx-(x-r)
+		c=c/(r*2)
+		c=c*2-1
+		c=1-sqrt(1-c*c)
+		
+		local h=c*r+0.2
+
+		line(lx,0,lx,ly+h,1)
+		line(lx,ly+r*2-h,lx,128, 1)
 	end
 	--pre r
 	for lx=0,x-r-1 do
@@ -93,7 +100,6 @@ function _draw()
 	cls()
 	draweye()
  drawmask()
- print(y,20,100,0)
 end
 __gfx__
 000000000aaaaaa00aaaaaa00000000000000000000ff0f00f0ff000000000000000000000000000000000000000000000000000000000000000000000000000
