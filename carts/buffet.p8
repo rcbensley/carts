@@ -2,73 +2,98 @@ pico-8 cartridge // http://www.pico-8.com
 version 36
 __lua__
 function _init()
-	ex = 64
-	ey = 64
+	x = 64
+	y = 64
+	r = 16
+	c = 2*3.14*r
+	
+	upper = c/2
+	lower = upper-c
 	ox = 0
 	oy = 0
 	rx = 64
 	ry = 64
-	offx=64
-	offy=64
+	offx=0
+	offy=0
+	mx = 0
+	my = 0
 end
 
 function _update()
 	if (btn(0)) then
-		ex=ex-1
+		x=x-1
 		ox=ox-1
-		offx=rx-1
-		offy=ry
+		offx=-1
+		offy=0
 	end
 	if (btn(1)) then
-		ex=ex+1
+		x=x+1
 		ox=ox+1
-		offx=rx+1
-		offy=ry
+		offx=1
+		offy=0
 	end
 	if (btn(2)) then
-		ey=ey-1
+		y=y-1
 		oy=oy-1
-		offy=ry-1
-		offx=rx
+		offx=0
+		offy=-1
 	end
 	if (btn(3)) then
-		ey=ey+1
+		y=y+1
 		oy=oy+1
-		offy=ry+1
-		offx=rx
+		offx=0
+		offy=1
 	end
 	
-	if ex >= 70 then ex=70 end
-	if ex <= 58 then ex=58 end
-	if ey >= 70 then ey=70 end
-	if ey <= 58 then ey=58 end
+	if x >= 70 then x=70 end
+	if x <= 58 then x=58 end
+	if y >= 70 then y=70 end
+	if y <= 58 then y=58 end
 	
-	if oy > 50 then
-		oy = -50
-	elseif oy < -50 then
-		oy = 50
+	if oy > upper then
+		oy=lower
+	elseif oy < lower then
+		oy=upper
 	end
-	if ox > 50 then
-	ox = -50
-	elseif ox < -50 then
-		ox = 50
+	if ox > upper then
+	ox=lower
+	elseif ox < lower then
+		ox=upper
 	end
-	rx = ex + ox
-	ry = ey + oy
+
+	rx=x+ox
+	ry=y+oy
+	
 end
 
 function draweye()
-	circfill(ex, ey, 16, 3)
-circfill(offx, offy, 8, 8)
-	--oval(rx-12, ry-4, rx+12, ry+5, 8)
-circfill(rx, ry, 8, 7)
-	--ovalfill(rx-12, ry-4, rx+12, ry+4, 7)
+	circfill(x, y, r, 3)
+	circfill(rx+offx, ry+offy, 8, 8)
+	circfill(rx, ry, 8, 7)
 	circfill(rx, ry, 4, 0)
+end
+
+function drawmask()
+	for lx=x-r,x do
+		local a=sqrt(x-lx)
+		local ly=sqrt(r-a)
+		line(lx,0,lx, ly, 1)
+	end
+	--pre r
+	for lx=0,x-r-1 do
+		line(lx,0,lx,128, 1)
+	end
+	-- post r+1
+	for lx=x+r+1,128 do
+		line(lx,0,lx,128, 1)
+	end
 end
 
 function _draw()
 	cls()
 	draweye()
+ drawmask()
+ print(y,20,100,0)
 end
 __gfx__
 000000000aaaaaa00aaaaaa00000000000000000000ff0f00f0ff000000000000000000000000000000000000000000000000000000000000000000000000000

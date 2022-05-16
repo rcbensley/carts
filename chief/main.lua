@@ -44,8 +44,8 @@ function mBirthday.load()
 	}
 end
 
-function mBirthday.update(dt)
-	if love.keyboard.isDown("space") then
+function mBirthday.update()
+	if timer >= 0.5 and love.keyboard.isDown("space") then
 		if mBirthday.nod == 1 then
 			mBirthday.nod = 2
 		else
@@ -55,6 +55,7 @@ function mBirthday.update(dt)
 		if mBirthday.nods >= 8 then
 			mBirthday.gameOver = true
 		end
+		timer = 0
 	end
 end
 
@@ -82,8 +83,7 @@ function briefs.load()
 	}
 end
 
-function briefs.update(dt)
-	timer = timer + dt
+function briefs.update()
 
 	if timer >= 0.5 and love.keyboard.isDown("space") then
 		timer = 0
@@ -109,8 +109,7 @@ function title.load()
 	title.screen = love.graphics.newImage("img/title1.png")
 end
 
-function title.update(dt)
-	time = timer + dt
+function title.update()
 	if timer >= 0.5 and love.keyboard.isDown("space") then
 		timer = 0
 		showTitle = false
@@ -146,18 +145,19 @@ function love.load()
 end
 
 function love.update(dt)
+	timer = timer + dt
 	print(showTitle, showBrief, showGame)
 	if showTitle then
-		title.update(dt)
+		title.update()
 		return
 	end
 	if showBrief then
-		briefs.update(dt)
+		briefs.update()
 		return
 	end
 
 	if showGame then
-		mission[mission].update(dt)
+		mission[mission].update()
 		return
 	end
 end
