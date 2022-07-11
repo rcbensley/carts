@@ -1,5 +1,5 @@
-width = 400
-height = 240
+width = 640
+height = 480
 
 function love.conf(t)
 	t.window.title = "Chief"
@@ -8,4 +8,3 @@ function love.conf(t)
 	t.window.minwidth = width
 	t.window.minheight = height
 end
-

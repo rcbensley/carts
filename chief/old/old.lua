@@ -31,36 +31,36 @@ function mHolo.draw()
 	love.graphics.draw(mHolo.screens[1])
 end
 
-mBirthday = {
+gameBirthday = {
 	gameOver = false,
 	nod = 1,
 	nods = 0,
 }
 
-function mBirthday.load()
-	mBirthday.screens = {
+function gameBirthday.load()
+	gameBirthday.screens = {
 		love.graphics.newImage("img/ob_nod1.png"),
 		love.graphics.newImage("img/ob_nod2.png"),
 	}
 end
 
-function mBirthday.update()
+function gameBirthday.update()
 	if timer >= 0.5 and love.keyboard.isDown("space") then
-		if mBirthday.nod == 1 then
-			mBirthday.nod = 2
+		if gameBirthday.nod == 1 then
+			gameBirthday.nod = 2
 		else
-			mBirthday.nod = 1
+			gameBirthday.nod = 1
 		end
-		mBirthday.nods = mBirthday.nods + 1
-		if mBirthday.nods >= 8 then
-			mBirthday.gameOver = true
+		gameBirthday.nods = gameBirthday.nods + 1
+		if gameBirthday.nods >= 8 then
+			gameBirthday.gameOver = true
 		end
 		timer = 0
 	end
 end
 
-function mBirthday.draw()
-	love.graphics.draw(mBirthday.screens[mBirthday.nod])
+function gameBirthday.draw()
+	love.graphics.draw(gameBirthday.screens[gameBirthday.nod])
 end
 
 -- END OF MISSIONS
@@ -79,7 +79,8 @@ function briefs.load()
 	}
 	briefs.b = {
 		{ { 1, "Chief!" }, { 1, "It's Commander Riker's Birthday" }, { 4, "..." }, { 2, "Isn't he a scamp?" } },
-		{ { 1, "Chief!" }, { 4, "Yes sir" }, { 2, "Riker's blown his loa- leave, in the holodeck again" }, { 6, "..." }, { 3, "Be a dear and scrub the holo-filters" } },
+		{ { 1, "Chief!" }, { 4, "Yes sir" }, { 2, "Riker's blown his loa- leave, in the holodeck again" }, { 6, "..." },
+			{ 3, "Be a dear and scrub the holo-filters" } },
 	}
 end
 
@@ -134,7 +135,7 @@ function love.load()
 
 	missions = {
 		mHolo,
-		mBirthday,
+		gameBirthday,
 	}
 
 	title.load()
