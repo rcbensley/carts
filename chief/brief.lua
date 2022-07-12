@@ -1,6 +1,6 @@
 Brief = { i = 1 }
 function Brief.load()
-	briefs.screens = {
+	Brief.screens = {
 		love.graphics.newImage("img/cpt_order.png"),
 		love.graphics.newImage("img/cpt_quiz.png"),
 		love.graphics.newImage("img/cpt_silly.png"),
@@ -8,7 +8,7 @@ function Brief.load()
 		love.graphics.newImage("img/ob_what.png"),
 		love.graphics.newImage("img/ob_gross.png"),
 	}
-	briefs.b = {
+	Brief.b = {
 		{ { 1, "Chief!" }, { 1, "It's Commander Riker's Birthday" }, { 4, "..." }, { 2, "Isn't he a scamp?" } },
 		{ { 1, "Chief!" }, { 4, "Yes sir" }, { 2, "Riker's blown his loa- leave, in the holodeck again" }, { 6, "..." },
 			{ 3, "Be a dear and scrub the holo-filters" } },

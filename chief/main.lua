@@ -3,7 +3,7 @@ require("games")
 
 Title = {}
 function Title.load()
-	title.screen = love.graphics.newImage("img/title1.png")
+	Title.screen = love.graphics.newImage("img/title1.png")
 end
 
 function Title.update(s)
@@ -16,14 +16,15 @@ end
 
 function Title.draw()
 	love.graphics.setBackgroundColor(bg, bg, bg)
-	love.graphics.draw(title.screen, 0, 0)
+	love.graphics.draw(Title.screen, 0, 0)
 end
 
 function love.load()
+	bg = 0
 	timer = 0
 	X = 0
 	Y = 0
-	space = false
+	SPACE = false
 	titleScreen = true
 	briefScreen = false
 	gameScreen = false
@@ -61,7 +62,7 @@ function love.update(dt)
 end
 
 function love.draw()
-	if titleScreen then title.draw() return end
-	if briefScreen then brief.draw() return end
+	if titleScreen then Title.draw() return end
+	if briefScreen then Brief.draw() return end
 	if gameScreen then Games[game].draw() return end
 end
