@@ -23,5 +23,6 @@
 	"Lua.diagnostics.disable": [
 		"missing-parameter",
 		"lowercase-global"
-	]
+	],
+	"python.formatting.provider": "black"
 }
