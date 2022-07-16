@@ -1,4 +1,8 @@
+import os
 import pygame as pg
+from briefs import Briefs
+
+ROOT = os.path.split(os.path.abspath(__file__))[0]
 
 
 class Chief:
@@ -14,6 +18,7 @@ class Chief:
         self.x = 0
         self.y = 0
         self.title = "Chief"
+        self.briefs = Briefs(ROOT)
 
     def __call__(self):
         self.run()
