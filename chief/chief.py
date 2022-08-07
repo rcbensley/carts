@@ -47,16 +47,17 @@ class Chief:
                 if e.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                # Update
+
                 if e.type == pygame.KEYDOWN:
                     if self.TITLE and e.key == pygame.K_SPACE:
                         self.TITLE = False
                         self.BRIEF = True
                         self.GAME = False
+
                     if self.BRIEF and e.key == pygame.K_SPACE:
-                        self.BRIEF = self.brief.update()
                         if not self.BRIEF:
                             self.GAME = True
+                        self.BRIEF = self.brief.update()
 
                     if self.GAME:
                         if e.key == pygame.K_a or pygame.K_LEFT:
