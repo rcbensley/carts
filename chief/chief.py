@@ -3,12 +3,15 @@ import os
 import sys
 import pygame
 from briefs import Brief
+from game import Game
 
+TITLE = "Chief"
+FONT = "st-tng-title.ttf"
 
 def main_menu(s: pygame.Surface):
     running = True
     while running:
-        for e in pygmae.event.get():
+        for e in pygame.event.get():
             if e.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
@@ -20,17 +23,15 @@ def main_menu(s: pygame.Surface):
         s.fill("black")
         title_font = pygame.font.Font(FONT, 96)
         title = title_font.render(TITLE, True, (255, 255, 255))
-        s.blit(t, (30, 30))
+        s.blit(title, (30, 30))
 
 
 def next_mission():
     pass
 
 def main():
-    ROOT = os.path.split(os.path.abspath(__file__))[0]
-    TITLE = "Chief"
-    FONT = "st-tng-title.ttf"
-    FPS = 30
+    root = os.path.split(os.path.abspath(__file__))[0]
+    fps = 30
     state = 0
     running = True
     m = 0
@@ -39,8 +40,8 @@ def main():
     pygame.init()
     pygame.display.set_caption(TITLE)
     screen = pygame.display.set_mode((width, height))
-    b = Brief(ROOT)
-    c = Chief()
+    b = Brief(FONT, root)
+    g = Game()
     clock = pygame.time.Clock()
     while running:
         if state == 0:
@@ -51,7 +52,7 @@ def main():
             state = c(m)
 
         pygame.display.update()
-        clock.tick(FPS)
+        clock.tick(fps)
         m = next_mission()
 
 if __name__ == "__main__":
