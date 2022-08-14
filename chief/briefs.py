@@ -3,7 +3,7 @@ import pygame
 
 
 class Brief:
-    def __init__(self, root: str):
+    def __init__(self, font: str, root: str):
         pygame.sprite.Sprite.__init__(self)
         self.i = 0
         self.j = 0
@@ -38,12 +38,20 @@ class Brief:
 
         self.image = self.brief_image()
         self.text = self.brief_text()
+        self.brief_font = pygame.font.Font(font,20)
 
     def brief_image(self):
         return self.images[self.briefs[self.i][self.j][0]]
 
     def brief_text(self):
         return self.briefs[self.i][self.j][1]
+
+    def __call__(self, s: pygame.Surface):
+        s.fill("black")
+        s.blit(self.brief.image, (0, 0))
+        t = self.brief_font.render(self.brief.text, True, (255, 255, 255))
+        s.blit(t, (20, 400))
+        pygame.display.flip()
 
     def update(self):
         self.image = self.images[self.briefs[self.i][self.j][0]]
