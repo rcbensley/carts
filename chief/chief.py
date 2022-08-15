@@ -31,10 +31,6 @@ def main_menu(s: pygame.Surface, c: pygame.time.Clock):
         c.tick(FPS)
 
 
-def brief(s: pygame.Surface):
-    pass
-
-
 def game(s: pygame.Surface):
     pass
 
