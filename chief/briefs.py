@@ -52,6 +52,7 @@ class Brief:
         t = self.brief_font.render(self.brief.text, True, (255, 255, 255))
         s.blit(t, (20, 400))
         pygame.display.flip()
+        return 
 
     def update(self):
         self.image = self.images[self.briefs[self.i][self.j][0]]
