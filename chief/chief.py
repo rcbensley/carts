@@ -2,18 +2,11 @@
 import os
 import sys
 import pygame
-from game import Game
 
-TITLE = "Chief"
-FONT = "st-tng-title.ttf"
-ROOT = os.path.split(os.path.abspath(__file__))[0]
-FPS = 30
 
 class Brief:
-    def __init__(self, font: str, root: str):
+    def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.i = 0
-        self.j = 0
         self.briefs = [
             [
                 [0, "Chief!"],
@@ -29,6 +22,10 @@ class Brief:
                 [2, "Be a dear and scrub the holo-filters"],
             ],
         ]
+        self.mission = 0
+        self.index = 0
+        self.count = len(self.briefs)
+
         self.image_files = [
             "cpt_order.png",
             "cpt_quiz.png",
@@ -45,43 +42,26 @@ class Brief:
 
         self.image = self.brief_image()
         self.text = self.brief_text()
-        self.brief_font = pygame.font.Font(font,20)
+        self.brief_font = pygame.font.Font(font, 20)
 
-    def brief_image(self):
-        return self.images[self.briefs[self.i][self.j][0]]
-
-    def brief_text(self):
-        return self.briefs[self.i][self.j][1]
-
-    def __call__(self, s: pygame.Surface):
-        s.fill("black")
-        s.blit(self.brief.image, (0, 0))
-        t = self.brief_font.render(self.brief.text, True, (255, 255, 255))
-        s.blit(t, (20, 400))
-        pygame.display.flip()
-        return 
-
-    def update(self):
-        self.image = self.images[self.briefs[self.i][self.j][0]]
-        self.text = self.briefs[self.i][self.j][1]
-        if self.j >= len(self.briefs[self.i]):
-            if self.i >= len(self.briefs):
-                self.i = 0
-            else:
-                self.i += 1
-            self.j = 0
-            return False
+    def next(self):
+        if self.index >= len(self.briefs[self.mission]):
+            self.index = 0
+            if self.mission >= self.count:
+                self.mission = 1
+            return True
         else:
-            self.j += 1
-        return True
+            self.index += 1
+            return False
 
-
-def main_menu(s: pygame.Surface, c: pygame.time.Clock):
-    while True:
-        s.fill("black")
-        title_font = pygame.font.Font(FONT, 96)
-        title = title_font.render(TITLE, True, (255, 255, 255))
-        s.blit(title, (30, 30))
+    def __call__(self):
+        image = self.images[self.briefs[self.mission][self.index][0]]
+        text = self.briefs[self.mission][self.index][1]
+        screen.fill("black")
+        screen.blit(image, (0, 0))
+        text = self.brief_font.render(text, True, (255, 255, 255))
+        screen.blit(text, (20, 400))
+        pygame.display.flip()
 
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
@@ -90,27 +70,43 @@ def main_menu(s: pygame.Surface, c: pygame.time.Clock):
             if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
                 return False
             if e.type == pygame.KEYDOWN and e.key == pygame.K_SPACE:
-                game(s)
+                self.brief()
 
         pygame.display.update()
-        c.tick(FPS)
-
-
-def game(s: pygame.Surface):
-    pass
-
-
-def main():
-    running = True
-    width = 640
-    height = 480
-    pygame.init()
-    pygame.display.set_caption(TITLE)
-    screen = pygame.display.set_mode((width, height))
-    clock = pygame.time.Clock()
-    while running:
-        running = main_menu(screen, clock)
+        clock.tick(fps)
 
 
 if __name__ == "__main__":
-    main()
+    running = True
+    width = 640
+    height = 480
+    title = "Chief"
+    font = "st-tng-title.ttf"
+    root = os.path.split(os.path.abspath(__file__))[0]
+    fps = 30
+    pygame.init()
+    pygame.display.set_caption(title)
+    screen = pygame.display.set_mode((width, height))
+    clock = pygame.time.Clock()
+    brief = Brief()
+    title_font = pygame.font.Font(font, 96)
+
+    while running:
+        screen.fill("black")
+        title = title_font.render(title, True, (255, 255, 255))
+        screen.blit(title, (30, 30))
+
+        for e in pygame.event.get():
+            if e.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
+                running = False
+            if e.type == pygame.KEYDOWN and e.key == pygame.K_SPACE:
+                brief()
+
+        pygame.display.update()
+        clock.tick(fps)
+
+    pygame.quit()
+    sys.exit()
