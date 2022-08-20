@@ -4,12 +4,6 @@ import sys
 import pygame
 
 
-class Mission:
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.running = True
-
-
 def play_mission(m: list, i: int):
     m[i]()
 
@@ -103,8 +97,8 @@ if __name__ == "__main__":
 
     while running:
         screen.fill("black")
-        title = title_font.render(title, True, (255, 255, 255))
-        screen.blit(title, (30, 30))
+        text = title_font.render(title, True, (255, 255, 255))
+        screen.blit(text, (30, 30))
 
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
