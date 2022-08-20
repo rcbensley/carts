@@ -4,6 +4,16 @@ import sys
 import pygame
 
 
+class Mission:
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.running = True
+
+
+def play_mission(m: list, i: int):
+    m[i]()
+
+
 class Brief:
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
@@ -22,7 +32,6 @@ class Brief:
                 [2, "Be a dear and scrub the holo-filters"],
             ],
         ]
-        self.mission = 0
         self.index = 0
         self.count = len(self.briefs)
 
@@ -40,8 +49,6 @@ class Brief:
             s = pygame.image.load(p).convert()
             self.images.append(s)
 
-        self.image = self.brief_image()
-        self.text = self.brief_text()
         self.brief_font = pygame.font.Font(font, 20)
 
     def next(self):
@@ -54,9 +61,9 @@ class Brief:
             self.index += 1
             return False
 
-    def __call__(self):
-        image = self.images[self.briefs[self.mission][self.index][0]]
-        text = self.briefs[self.mission][self.index][1]
+    def __call__(self, m: int):
+        image = self.images[self.briefs[m][self.index][0]]
+        text = self.briefs[m][self.index][1]
         screen.fill("black")
         screen.blit(image, (0, 0))
         text = self.brief_font.render(text, True, (255, 255, 255))
@@ -70,7 +77,8 @@ class Brief:
             if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
                 return False
             if e.type == pygame.KEYDOWN and e.key == pygame.K_SPACE:
-                self.brief()
+                if self.next():
+                    play_mission(missions, mission)
 
         pygame.display.update()
         clock.tick(fps)
@@ -90,6 +98,8 @@ if __name__ == "__main__":
     clock = pygame.time.Clock()
     brief = Brief()
     title_font = pygame.font.Font(font, 96)
+    missions = []
+    mission = 0
 
     while running:
         screen.fill("black")
@@ -103,7 +113,7 @@ if __name__ == "__main__":
             if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
                 running = False
             if e.type == pygame.KEYDOWN and e.key == pygame.K_SPACE:
-                brief()
+                brief(mission)
 
         pygame.display.update()
         clock.tick(fps)
