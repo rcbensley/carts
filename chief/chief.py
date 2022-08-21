@@ -45,8 +45,8 @@ class Brief:
 
         self.brief_font = pygame.font.Font(font, 20)
 
-    def next(self):
-        if self.index >= len(self.briefs[self.mission]):
+    def next(self, m: int):
+        if self.index >= len(self.briefs[m]):
             self.index = 0
             if self.mission >= self.count:
                 self.mission = 1
@@ -71,7 +71,7 @@ class Brief:
             if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
                 return False
             if e.type == pygame.KEYDOWN and e.key == pygame.K_SPACE:
-                if self.next():
+                if self.next(m):
                     play_mission(missions, mission)
 
         pygame.display.update()
