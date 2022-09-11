@@ -16,6 +16,13 @@ var (
 	Title   string = "Chief"
 )
 
+type BriefScreen struct {
+	image string
+	text  string
+}
+
+type Brief []BriefScreen
+
 type Game struct{}
 
 func (g *Game) Update() error {
