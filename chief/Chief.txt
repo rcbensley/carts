@@ -19,7 +19,7 @@ mission:
 Chief! Riker's blown all his loa-leave, in the holodeck again.
 Be a dear and scrub the holo-filters.
 
-Chief! The transporters ar down and Mr.Worf is passed out drunk on the surface.
+Chief! The transporters are down and Mr.Worf is passed out drunk on the surface.
 Use the grappling hook to load in aboard.
 
 Chief! Wesley has scraped his knee.
@@ -58,7 +58,7 @@ Catch it quick! (catch the bouncing ball)
 Chief! Dax is trying to leave it's host.
 Squash it back in there.
 
-Chief! Garak is spying...on Bashir in the showers.
+Chief! Garak is spying, on Bashir in the showers.
 Plaster over the peep holes!
 
 Chief! Jake needs inspiration for his latest piece.
