@@ -18,6 +18,7 @@ function _init()
 	t=0
 	counter=1
 	palt(11,true)
+	palt(0,false)
 end
 
 function _update()
@@ -41,6 +42,17 @@ function draw_talk(x,y,t)
 	spr(m[counter],x+4,y+8)
 end
 
+function draw_eyes(x,y,t)
+	local xe=x+5
+	local ye=y+5
+	if counter!=1 then
+	rectfill(xe,ye,xe+2,ye+2,7)
+	rectfill(xe+5,ye,xe+7,ye+2,7)
+	pset(xe+1,ye+1,1)
+	pset(xe+6,ye+1,1)
+	end
+end
+
 function draw_face(x,y,f,t)
 	local face={f,f+1,f+16,f+17}
 	spr(face[1],x,y)
@@ -48,13 +60,13 @@ function draw_face(x,y,f,t)
 	spr(face[3],x,y+8)
 	spr(face[4],x+8,y+8)
 	draw_talk(x,y,t)
+	draw_eyes(x,y,t)
 end
 
 
 function _draw()
 	cls()
-	palt(11,true)
-	palt(0,false)
+
 	draw_face(32,32,1,t)
 	--spr(65,32+4,32+10)
 end
@@ -64,9 +76,9 @@ __gfx__
 00700700b9999999999999bbb0000000fff00bbbbbbbfffffffffbbb000004444444000bbbbbbbbbbbbbbbbbbbbb999999999bbbbb00000000000bbb119ff911
 00077000b9999ffffff999bbb000fffffffffbbbbbbffffffffffbbb000440444404400bbbbbbbbbbbbbbbbbbbb9999ffffffbbbbb00000ffffffbbb11f99ff1
 00077000b999ffffffff9bbbb000ff777ff777bbbbb6f777f777f6bb000470040007400bbbbbbbbbbbbbbbbbbbb999f77ff77bbbbbb000077ff77bbb11fffff1
-00700700b999777ff777fbbbb000ff770ff770bbbb66f707f707f66b000477000777400bbbbbbbb00bbbbbbbbbb999f70ff70bbbbbb000f70ff70bbb111fff1b
-00000000b99f707ff707fbbbb0000f777ff777bbbb66f777f777f66b000470744707400bbbbbbbb0bbbbbbbbbbb99fffffffbbbbbbbb00ffffffbbbb1b51511b
-00000000b999777ff777fbbbbb000fffffffffbbbb6fffffffffff6b0004444444444000bbbbbff00ffbbbbbbbb99ffffffffbbbbbbb00fffffffbbb1f151511
+00700700b999fffffffffbbbb000ff770ff770bbbb66f707f707f66b000477000777400bbbbbbbb00bbbbbbbbbb999f70ff70bbbbbb000f70ff70bbb111fff1b
+00000000b99ffffffffffbbbb0000f777ff777bbbb66f777f777f66b000470744707400bbbbbbbb0bbbbbbbbbbb99fffffffbbbbbbbb00ffffffbbbb1b51511b
+00000000b999fffffffffbbbbb000fffffffffbbbb6fffffffffff6b0004444444444000bbbbbff00ffbbbbbbbb99ffffffffbbbbbbb00fffffffbbb1f151511
 00000000b999fffffffffbbbbb000fffffffffbbbbfffffffffffffb0004444444444000bbbb777ff777bbbbbbb99ffffffffbbbbbbbb0fffffffbbbb15151bb
 00000000b999fffffffffbbbbb000fffffffffbbbbfffffffffffffb000444444444400bbbbb770ff077bbbbbbb999ffff88fbbbbbbbbbffff88fbbbb515151b
 00000000b999fffffffffbbbbb000fffff0000bbbbffffffffffffbb004444444444400bbbbf777ff777fbbbbbb999fff888fbbbbbbbbbfff888fbbbb111111b
