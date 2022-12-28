@@ -1,6 +1,13 @@
 pico-8 cartridge // http://www.pico-8.com
-version 29
+version 38
 __lua__
+-- fry, collect slurm to load
+-- vending machine on ship.
+-- leela, feed nibbler so he
+-- can poop some ship fuel.
+-- bender, load the ship cargo
+-- 
+
 score=0
 slurms=10	
 player = {}
