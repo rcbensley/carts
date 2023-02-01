@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strings"
 )
 
 const (
@@ -11,12 +10,12 @@ const (
 
 var (
 	gameOffsets = []int{-4, -3, -2, -1, 1, 2, 3, 4}
-	games       = []string{}
+	games       = [][]int{}
 )
 
 func init() {
 	for _, o := range gameOffsets {
-		var s = []string{}
+		var game = []int{}
 		var j int
 		var diff int
 		for i := 0; i <= 25; i++ {
@@ -29,16 +28,18 @@ func init() {
 				j = 0 + diff
 			}
 
-			l := string(alphabet[j])
-			s = append(s, l)
+			game = append(game, j)
 		}
-		newAlphabet := strings.Join(s, "")
-		games = append(games, newAlphabet)
+		games = append(games, game)
 	}
 }
 
 func main() {
 	for i := range games {
-		fmt.Println(games[i])
+		a := []string{}
+		for _, j := range games[i] {
+			a = append(a, string(alphabet[j]))
+		}
+		fmt.Println(a)
 	}
 }
