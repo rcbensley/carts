@@ -1,11 +1,11 @@
 AZ = "abcdefghijklmnopqrstuvwxyz"
 OFFSETS = list([i for i in range(-4, 4)])
-GAMES = list()
 
 
 def randaz():
-    game = list()
+    games = list()
     for o in OFFSETS:
+        game = list()
         for i in range(0, 25):
             j = i + o
             if j < 0:
@@ -15,15 +15,16 @@ def randaz():
                 diff = j - 25
                 j = 0 + diff
             game.append(j)
-    GAMES.append(game)
+        games.append(game)
+    return games
 
 
 if __name__ == "__main__":
-    randaz()
-    for i in GAMES:
+    g = randaz()
+    for i in g:
         a = list()
         for j in i:
             a.append(AZ[j])
 
         s = "".join(a)
-        print(f"{a}\n")
+        print(s)
