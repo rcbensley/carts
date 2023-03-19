@@ -2,6 +2,7 @@
 import os
 import sys
 import pygame
+from briefs import briefs
 
 
 def play_mission(m: list, i: int):
@@ -10,24 +11,9 @@ def play_mission(m: list, i: int):
 
 class Brief:
     def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.briefs = [
-            [
-                [0, "Chief!"],
-                [0, "It's Commander Riker's Birthday"],
-                [3, "..."],
-                [1, "Isn't he a scamp?"],
-            ],
-            [
-                [0, "Chief!"],
-                [3, "Yes sir"],
-                [1, "Riker's used his 14 days shore leave, in the holodeck again"],
-                [5, "..."],
-                [2, "Be a dear and scrub the holo-filters"],
-            ],
-        ]
+        self.brief = 0
         self.index = 0
-        self.count = len(self.briefs)
+        self.count = len(briefs)
 
         self.image_files = [
             "cpt_order.png",
