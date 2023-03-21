@@ -14,6 +14,9 @@ class Brief:
         self.brief = 0
         self.index = 0
         self.count = len(briefs)
+        self.image = None
+        self.brief_text = None
+        self.text = None
 
         self.image_files = [
             "cpt_order.png",
@@ -31,37 +34,23 @@ class Brief:
 
         self.brief_font = pygame.font.Font(font, 20)
 
-    def next(self, m: int):
+    def update(self, m: int):
         if self.index >= len(self.briefs[m]):
             self.index = 0
             if self.mission >= self.count:
                 self.mission = 1
-            return True
         else:
             self.index += 1
-            return False
 
-    def __call__(self, m: int):
-        image = self.images[self.briefs[m][self.index][0]]
-        text = self.briefs[m][self.index][1]
+        self.image = self.images[self.briefs[m][self.index][0]]
+        self.brief_text = self.briefs[m][self.index][1]
+        self.text = self.brief_font.render(self.brief_text, True, (255, 255, 255))
+
+    def draw(self, m: int):
         screen.fill("black")
-        screen.blit(image, (0, 0))
-        text = self.brief_font.render(text, True, (255, 255, 255))
-        screen.blit(text, (20, 400))
+        screen.blit(self.image, (0, 0))
+        screen.blit(self.text, (20, 400))
         pygame.display.flip()
-
-        for e in pygame.event.get():
-            if e.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
-                return False
-            if e.type == pygame.KEYDOWN and e.key == pygame.K_SPACE:
-                if self.next(m):
-                    play_mission(missions, mission)
-
-        pygame.display.update()
-        clock.tick(fps)
 
 
 if __name__ == "__main__":
@@ -80,6 +69,7 @@ if __name__ == "__main__":
     title_font = pygame.font.Font(font, 96)
     missions = []
     mission = 0
+    mode = 0  # menu, brief, game
 
     while running:
         screen.fill("black")
@@ -88,8 +78,7 @@ if __name__ == "__main__":
 
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+                running = False
             if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
                 running = False
             if e.type == pygame.KEYDOWN and e.key == pygame.K_SPACE:
