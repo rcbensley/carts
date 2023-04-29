@@ -1,5 +1,0 @@
-pygame
-numpy
-requests
-moderngl
-pyglet
