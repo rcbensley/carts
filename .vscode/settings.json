@@ -1,4 +1,0 @@
-{
-	"Lua.workspace.checkThirdParty": false,
-	"python.formatting.provider": "black"
-}
