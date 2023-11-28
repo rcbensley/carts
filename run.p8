@@ -2,6 +2,13 @@ pico-8 cartridge // http://www.pico-8.com
 version 41
 __lua__
 
+g = {}
+for i=0,15 do
+	local j=flr(rnd(3))
+	local k=i*8
+	g[i+1] = {j,k}
+end
+
 
 function _draw()
 	cls(1)
@@ -9,10 +16,8 @@ function _draw()
 
 	palt(11,true)
 	palt(0, false)
-	for i=0,15 do
-		local j=flr(rnd(3))
-		local k=i*8
-		spr(j,k,92)
+	for i in all(g) do
+		spr(i[1],i[2],92)
 	end
 end
 __gfx__
