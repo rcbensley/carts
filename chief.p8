@@ -1,6 +1,14 @@
 pico-8 cartridge // http://www.pico-8.com
 version 41
 __lua__
+-- levels
+--
+-- holodeck, hand item game
+-- transporter room, golf like bar
+-- ten forward, chase game
+-- bridge, just gtfo, you are dismissed, get me a tea
+-- 
+
 lives = 3
 score = 0
 screen = 0
